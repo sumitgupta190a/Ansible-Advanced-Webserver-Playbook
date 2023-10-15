@@ -1,0 +1,31 @@
+- name: Installing package
+  package:
+    name: "{{ item }}"  #Item is the default varieble
+    state: present
+  loop: #Using loop for install multiple software
+      - "httpd"
+      - "php"
+      - "git"
+      - "dialog"
+  notify: software install debug
+  when: ansible_facts['distribution'] in myos
+
+
+- name: setup conf file
+  template:
+    src: "my.conf.j2"
+    dest: "/etc/httpd/conf.d/my.conf"
+  notify: "service httpd"
+
+#We are not using this kyoki hum ab pura code git se le rhe hai.....
+- name: deploy web page from local
+  copy:
+    src: "index.php"
+    dest: "/var/www/html/index.php"
+
+
+- name: Git pull code web page
+  git:
+    repo: 'https://github.com/sumitgupta190a/Ansible-Advanced-Playbooks.git'
+    dest: "/var/www/html/mygit"
+  ignore_errors: true

@@ -1,0 +1,10 @@
+handlers:
+- name: service httpd
+  service:
+    name: "httpd"
+    state: "restarted"
+    enabled: yes
+
+- name: software install debug
+  debug:
+    msg: "i m debug new software install"

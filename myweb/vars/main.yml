@@ -1,0 +1,5 @@
+myport: 8080
+myos:
+- "RedHat"
+- "Fedora"
+- "Centos"
